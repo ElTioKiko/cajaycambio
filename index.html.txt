@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Caja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .fila {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+
+    input {
+      width: 80px;
+      padding: 5px;
+      text-align: right;
+    }
+
+    .total {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .caja {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="caja">
+  <h2>Billetes</h2>
+
+  <div class="fila">50€ <input type="number" id="b50" value="0"></div>
+  <div class="fila">20€ <input type="number" id="b20" value="0"></div>
+  <div class="fila">10€ <input type="number" id="b10" value="0"></div>
+  <div class="fila">5€ <input type="number" id="b5" value="0"></div>
+
+  <h2>Monedas</h2>
+
+  <div class="fila">1€ <input type="number" id="m1" value="0"></div>
+  <div class="fila">0,50€ <input type="number" id="m50" value="0"></div>
+  <div class="fila">0,20€ <input type="number" id="m20" value="0"></div>
+  <div class="fila">0,10€ <input type="number" id="m10" value="0"></div>
+  <div class="fila">0,05€ <input type="number" id="m5" value="0"></div>
+
+  <div class="total">
+    Total: <span id="total">0.00</span> €
+  </div>
+</div>
+
+<script>
+function calcular() {
+  let total =
+    (val("b50") * 50) +
+    (val("b20") * 20) +
+    (val("b10") * 10) +
+    (val("b5") * 5) +
+    (val("m1") * 1) +
+    (val("m50") * 0.5) +
+    (val("m20") * 0.2) +
+    (val("m10") * 0.1) +
+    (val("m5") * 0.05);
+
+  document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function val(id) {
+  return parseFloat(document.getElementById(id).value) || 0;
+}
+
+// Escuchar cambios
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", calcular);
+});
+
+// Inicial
+calcular();
+</script>
+
+</body>
+</html>
